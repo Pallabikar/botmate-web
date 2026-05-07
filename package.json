@@ -5,9 +5,18 @@
     "frontend",
     "backend"
   ],
+  "scripts": {
+    "frontend": "npm run dev -w frontend",
+    "backend": "npm run dev -w backend",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\""
+  },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.4",
     "lightningcss-win32-x64-msvc": "^1.32.0",
-    "tailwindcss": "^4.2.4"
+    "tailwindcss": "^4.2.4",
+    "@next/swc-win32-x64-msvc": "16.1.6"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
