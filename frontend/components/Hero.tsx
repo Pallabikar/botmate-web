@@ -64,6 +64,49 @@ function HUDReadout({ label, value }: { label: string; value: string }) {
   );
 }
 
+const OptimizedVideo = ({ src, poster }: { src: string; poster: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isVisible && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [isVisible]);
+
+  return (
+    <video
+      ref={videoRef}
+      muted
+      playsInline
+      loop
+      preload="none"
+      className="hero-video-bg"
+      poster={poster}
+    >
+      {isVisible && <source src={src} type="video/mp4" />}
+    </video>
+  );
+};
+
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef(null);
@@ -91,14 +134,9 @@ export default function Hero() {
 
         {/* ── BACKGROUND ── */}
         <div className="hero-bg">
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            playsInline
-            className="hero-video-bg"
+          <OptimizedVideo 
             src="https://res.cloudinary.com/dh6ibke5w/video/upload/v1777274519/Robodino_Final_y3n3cq.mp4"
-            poster="https://res.cloudinary.com/dh6ibke5w/image/upload/v1777274515/hero-poster_p8qcmr.png"
+            poster="https://res.cloudinary.com/dh6ibke5w/image/upload/q_auto,f_auto,w_800/v1777274515/hero-poster_p8qcmr.png"
           />
           <div className="grid-overlay" />
           <div className="speed-lines" />
@@ -131,19 +169,14 @@ export default function Hero() {
               >
                 Digitally with
               </motion.span>
-              <span className="highlight">
-                {glitchedHighlight.split("").map((char, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 0.5, delay: 0.4 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ display: "inline-block", whiteSpace: char === " " ? "pre" : "normal" }}
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
+              <motion.span 
+                className="highlight"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                BOTMATE
+              </motion.span>
             </h1>
 
             <div className="hero-sub-wrap">

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Terminal, Shield, Cpu, ExternalLink, Zap } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { StaggerReveal, RevealItem, AnimatedText } from "./AnimationSystem";
 
@@ -72,7 +73,16 @@ export default function TeamGrid() {
                 >
                   {/* Image Part */}
                   <div className="card-media">
-                    <img src={member.image} alt={member.name} className="member-image" />
+                    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+                      <Image 
+                        src={member.image} 
+                        alt={member.name} 
+                        fill
+                        className="member-image object-cover" 
+                        sizes="(max-width: 768px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                        priority={i === 0}
+                      />
+                    </div>
                     <div className="card-overlay" />
                     
                     {/* HUD Elements */}

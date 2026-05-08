@@ -298,8 +298,7 @@ export default function ChatBotPopup() {
           width: 56px;
           height: 56px;
           background: rgba(0, 229, 255, 0.05);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          background: rgba(4, 8, 15, 0.95);
           border: 1px solid rgba(0, 229, 255, 0.5);
           color: #00e5ff;
           display: flex;

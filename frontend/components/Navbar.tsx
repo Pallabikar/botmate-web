@@ -137,8 +137,7 @@ export default function Navbar() {
           justify-content: space-between;
           padding: 0 60px;
           background: rgba(4, 8, 15, 0.85);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
+          background: rgba(4, 8, 15, 0.92);
           z-index: 1200;
         }
 

@@ -28,12 +28,14 @@ export default function CustomCursor() {
       cursorY.set(e.clientY);
       if (!isVisible) setIsVisible(true);
 
-      // Trail particles
-      const id = trailIdRef.current++;
-      setTrail((prev) => [...prev.slice(-10), { x: e.clientX, y: e.clientY, id }]);
-      setTimeout(() => {
-        setTrail((prev) => prev.filter((t) => t.id !== id));
-      }, 500);
+      // Throttled trail update
+      if (Math.random() > 0.6) {
+        const id = trailIdRef.current++;
+        setTrail((prev) => [...prev.slice(-6), { x: e.clientX, y: e.clientY, id }]);
+        setTimeout(() => {
+          setTrail((prev) => prev.filter((t) => t.id !== id));
+        }, 400);
+      }
     };
 
     const handleHover = (e: MouseEvent) => {
