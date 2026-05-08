@@ -12,9 +12,7 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.4",
-    "lightningcss-win32-x64-msvc": "^1.32.0",
-    "tailwindcss": "^4.2.4",
-    "@next/swc-win32-x64-msvc": "16.1.6"
+    "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
