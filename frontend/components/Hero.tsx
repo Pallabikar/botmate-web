@@ -97,7 +97,7 @@ const OptimizedVideo = ({ src, poster }: { src: string; poster: string }) => {
       ref={videoRef}
       muted
       playsInline
-      
+      loop
       preload="none"
       className="hero-video-bg"
       poster={poster}
