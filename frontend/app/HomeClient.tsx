@@ -506,7 +506,7 @@ function PricingSection() {
                       </li>
                     ))}
                   </ul>
-                  <a href="/get-started" className={`plan-cta${p.popular ? " plan-cta-primary" : " plan-cta-outline"}`}>
+                  <a href="/get-started" className={`plan-cta${p.popular ? " plan-cta-primary" : " plan-cta-outline"}`} aria-label={`Get Started with ${p.name}`}>
                     {p.cta}
                   </a>
                 </motion.div>

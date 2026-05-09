@@ -48,7 +48,7 @@ export default function Navbar() {
       <nav className="navbar">
         {/* LEFT LOGO */}
         <div className="nav-left">
-          <Link href="/" className="nav-logo">
+          <Link href="/" className="nav-logo" aria-label="BotMate Home">
             <Image
               src="https://res.cloudinary.com/dh6ibke5w/image/upload/v1777274506/botmate-icon_t2vtig.png"
               alt="BotMate logo"
@@ -78,7 +78,7 @@ export default function Navbar() {
 
         {/* RIGHT CTA */}
         <div className="nav-right">
-          <Link href="/get-started" className="nav-cta">
+          <Link href="/get-started" className="nav-cta" aria-label="Get Started with BotMate">
             Get Started
           </Link>
         </div>

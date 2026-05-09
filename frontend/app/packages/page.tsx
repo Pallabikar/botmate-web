@@ -2,10 +2,16 @@ import type { Metadata } from "next";
 import PackagesClient from "./PackagesClient";
 
 export const metadata: Metadata = {
-  title: "Pricing & Packages | BOTMATE - Scale Your Brand",
-  description: "Transparent pricing for digital marketing and AI growth packages. Choose the protocol that fits your business stage.",
+  title: "Pricing & Packages | BOTMATE - Scale Your Brand with AI",
+  description: "Transparent pricing for digital marketing and AI growth packages. Choose the protocol that fits your business stage, from Starter to Enterprise.",
+  keywords: ["Marketing Pricing", "AI Packages", "Digital Growth Plans", "BotMate Pricing"],
   alternates: {
     canonical: "https://botmate.in/packages",
+  },
+  openGraph: {
+    title: "Pricing & Packages | BOTMATE",
+    description: "Scalable AI-driven marketing solutions for every business stage.",
+    url: "https://botmate.in/packages",
   },
 };
 

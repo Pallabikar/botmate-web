@@ -172,7 +172,7 @@ function ContactForm() {
             </div>
             <input type="text" placeholder="Subject" required />
             <textarea placeholder="Tell us about your project goals..." rows={6} required />
-            <button type="submit" className="submit-btn">Initiate Connection</button>
+            <button type="submit" className="submit-btn" aria-label="Submit project requirements">Initiate Connection</button>
           </form>
         </div>
       </div>

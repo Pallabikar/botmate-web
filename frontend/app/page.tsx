@@ -2,10 +2,15 @@ import type { Metadata } from "next";
 import HomeClient from "./HomeClient";
 
 export const metadata: Metadata = {
-  title: "BOTMATE | Best Digital Marketing Agency in Mumbai",
-  description: "Accelerate your growth with BotMate. We specialize in AI-driven SEO, Social Media, and Performance Marketing for businesses in Mumbai and beyond.",
+  title: "BOTMATE | Best Digital Marketing Agency in Mumbai | AI-Driven Results",
+  description: "Accelerate your growth with BotMate, Mumbai's leading AI-powered digital marketing agency. We specialize in SEO, social media management, and performance marketing to scale your business.",
   alternates: {
     canonical: "https://botmate.in",
+  },
+  openGraph: {
+    title: "BOTMATE | Best Digital Marketing Agency in Mumbai",
+    description: "Scale your business with AI-driven marketing strategies.",
+    url: "https://botmate.in",
   },
 };
 

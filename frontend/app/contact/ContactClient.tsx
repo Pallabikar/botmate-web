@@ -349,6 +349,8 @@ function MorphButton() {
   return (
     <motion.button
       className="morph-btn"
+      type="submit"
+      aria-label={labels[state]}
       onClick={handleClick}
       animate={{
         background: colors[state],
@@ -574,7 +576,7 @@ function MapSection() {
           <div className="map-footer">
             <div className="mf-dot" />
             <span className="mf-text">N6/354, Block N6, IRC Village, Nayapalli, Bhubaneswar, Odisha 751015</span>
-            <a href="https://maps.app.goo.gl/Vhenu8EPSTTZ4gKK9" target="_blank" rel="noopener noreferrer" className="mf-link">
+            <a href="https://maps.app.goo.gl/Vhenu8EPSTTZ4gKK9" target="_blank" rel="noopener noreferrer" className="mf-link" aria-label="Open office location in Google Maps">
               Open in Maps ↗
             </a>
           </div>

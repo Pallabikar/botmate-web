@@ -97,7 +97,7 @@ function PackagesGrid() {
                       </li>
                     ))}
                   </ul>
-                  <a href="/get-started" className={`pkg-btn ${pkg.popular ? "btn-primary" : "btn-outline"}`}>
+                  <a href="/get-started" className={`pkg-btn ${pkg.popular ? "btn-primary" : "btn-outline"}`} aria-label={`Choose ${pkg.name} plan`}>
                     Choose {pkg.name}
                   </a>
                 </motion.div>

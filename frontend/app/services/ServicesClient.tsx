@@ -14,7 +14,7 @@ const SERVICES = [
     accentDim: "rgba(0,240,255,0.08)",
     accentGlow: "rgba(0,240,255,0.25)",
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48" aria-hidden="true">
         <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="1.2" strokeDasharray="4 3"/>
         <path d="M12 32 L20 20 L28 26 L36 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         <circle cx="36" cy="14" r="3" fill="currentColor"/>
@@ -38,7 +38,7 @@ const SERVICES = [
     accentDim: "rgba(177,79,255,0.08)",
     accentGlow: "rgba(177,79,255,0.25)",
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48" aria-hidden="true">
         <rect x="4" y="8" width="40" height="28" rx="3" stroke="currentColor" strokeWidth="1.2"/>
         <path d="M4 14 h40" stroke="currentColor" strokeWidth="0.8" opacity="0.4"/>
         <circle cx="10" cy="11" r="1.5" fill="currentColor" opacity="0.5"/>
@@ -68,7 +68,7 @@ const SERVICES = [
     accentDim: "rgba(255,107,53,0.08)",
     accentGlow: "rgba(255,107,53,0.25)",
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48" aria-hidden="true">
         <circle cx="10" cy="24" r="5" stroke="currentColor" strokeWidth="1.2"/>
         <circle cx="38" cy="12" r="5" stroke="currentColor" strokeWidth="1.2"/>
         <circle cx="38" cy="36" r="5" stroke="currentColor" strokeWidth="1.2"/>
@@ -673,10 +673,10 @@ export default function ServicesClient() {
           Let's Build Something <em style={{ color: "#00f0ff", fontStyle: "italic" }}>Exceptional</em>
         </h2>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="/get-started" style={{ padding: "16px 40px", background: "#00f0ff", color: "#000", fontWeight: 700, fontSize: 14, borderRadius: 8, textDecoration: "none", letterSpacing: "0.05em" }}>
+          <a href="/get-started" style={{ padding: "16px 40px", background: "#00f0ff", color: "#000", fontWeight: 700, fontSize: 14, borderRadius: 8, textDecoration: "none", letterSpacing: "0.05em" }} aria-label="Get Started with BotMate">
             Get Started
           </a>
-          <a href="/packages" style={{ padding: "16px 40px", border: "1px solid rgba(255,255,255,0.15)", color: "#fff", fontWeight: 600, fontSize: 14, borderRadius: 8, textDecoration: "none", letterSpacing: "0.05em" }}>
+          <a href="/packages" style={{ padding: "16px 40px", border: "1px solid rgba(255,255,255,0.15)", color: "#fff", fontWeight: 600, fontSize: 14, borderRadius: 8, textDecoration: "none", letterSpacing: "0.05em" }} aria-label="View BotMate Packages">
             View Packages
           </a>
         </div>

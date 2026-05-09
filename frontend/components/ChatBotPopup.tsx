@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, ChevronUp } from "lucide-react";
+import Image from "next/image";
 
 interface Message {
   id: number;
@@ -132,7 +133,13 @@ export default function ChatBotPopup() {
             {/* HEADER */}
             <div className="chat-header">
               <div className="flex items-center gap-3">
-                <img src="https://res.cloudinary.com/dh6ibke5w/image/upload/v1777281719/RoboDino_Telecaller_bhpv3t.png" className="w-10 h-10 object-contain" />
+                <Image 
+                  src="https://res.cloudinary.com/dh6ibke5w/image/upload/v1777281719/RoboDino_Telecaller_bhpv3t.png" 
+                  className="w-10 h-10 object-contain" 
+                  alt="BotMate AI Assistant"
+                  width={40}
+                  height={40}
+                />
                 <div>
                   <p className="text-white text-xs font-bold tracking-wider">
                     BOTMATE AI
@@ -141,7 +148,7 @@ export default function ChatBotPopup() {
                 </div>
               </div>
 
-              <button onClick={() => setIsOpen(false)}>
+              <button onClick={() => setIsOpen(false)} aria-label="Close Chat">
                 <X size={18} className="text-white/40 hover:text-white" />
               </button>
             </div>
@@ -172,7 +179,7 @@ export default function ChatBotPopup() {
                   onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                   placeholder="Ask BotMate..."
                 />
-                <button onClick={sendMessage} className="chat-send">
+                 <button onClick={sendMessage} className="chat-send" aria-label="Send Message">
                   <Send size={16} />
                 </button>
               </div>
@@ -184,9 +191,16 @@ export default function ChatBotPopup() {
       {/* TOGGLE BUTTON */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="chat-toggle"
+         className="chat-toggle"
+        aria-label="Toggle Chat"
       >
-        <img src="https://res.cloudinary.com/dh6ibke5w/image/upload/v1777281719/RoboDino_Telecaller_bhpv3t.png" className="w-12 h-12 object-contain" />
+        <Image 
+          src="https://res.cloudinary.com/dh6ibke5w/image/upload/v1777281719/RoboDino_Telecaller_bhpv3t.png" 
+          className="w-12 h-12 object-contain" 
+          alt="Chat with BotMate AI"
+          width={48}
+          height={48}
+        />
       </button>
 
       {/* STYLES */}

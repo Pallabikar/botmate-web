@@ -23,7 +23,7 @@ export default function GlobalFooter() {
         <div className="footer-inner">
           {/* ── Brand Column ── */}
           <div className="footer-col brand-col">
-            <Link href="/" className="footer-logo-wrap">
+            <Link href="/" className="footer-logo-wrap" aria-label="BotMate Home">
               <Image
   src="https://res.cloudinary.com/dh6ibke5w/image/upload/v1777274506/botmate-icon_t2vtig.png"
   alt="BotMate Logo"
@@ -160,12 +160,12 @@ export default function GlobalFooter() {
                 Ready to scale your brand with AI-powered strategies?
               </p>
 
-              <a href="/get-started" className="footer-cta-btn">
+              <a href="/get-started" className="footer-cta-btn" aria-label="Get Started with AI Strategies">
                 Get Started
                 <ArrowUpRight size={14} />
               </a>
 
-              <a href="/contact" className="footer-cta-ghost">
+              <a href="/contact" className="footer-cta-ghost" aria-label="Book a free strategy call">
                 Book a free strategy call
               </a>
             </div>

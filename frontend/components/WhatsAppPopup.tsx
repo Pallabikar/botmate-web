@@ -15,6 +15,7 @@ export default function WhatsAppPopup() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative group block"
+                aria-label="Chat with BotMate on WhatsApp"
             >
                 <motion.div
                     whileHover={{ scale: 1.1 }}

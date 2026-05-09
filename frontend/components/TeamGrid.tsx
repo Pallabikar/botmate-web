@@ -126,6 +126,7 @@ export default function TeamGrid() {
                         <motion.button 
                           whileHover={{ color: "#00e5ff" }}
                           className="read-more-btn"
+                          aria-label={`View profile for ${member.name}`}
                         >
                           PROFILES <ExternalLink size={12} />
                         </motion.button>
