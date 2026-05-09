@@ -97,12 +97,12 @@ const OptimizedVideo = ({ src, poster }: { src: string; poster: string }) => {
       ref={videoRef}
       muted
       playsInline
-      loop
+      
       preload="none"
       className="hero-video-bg"
       poster={poster}
     >
-      {isVisible && <source src={src} type="video/mp4" />}
+      <source src={src} type="video/mp4" />
     </video>
   );
 };
@@ -122,15 +122,6 @@ export default function Hero() {
   return (
     <div className="hero-container" ref={containerRef}>
       <section className="hero">
-        {/* ── HUD OVERLAY ── */}
-        <div className="hero-hud-frame" aria-hidden="true">
-          <ARBrackets size={32} color="#00e5ff" thickness={2} />
-          <div className="hud-corner-info tl"><HUDReadout label="SYSTEM" value="ACTIVE" /></div>
-          <div className="hud-corner-info tr"><HUDReadout label="NEURAL" value="LINKED" /></div>
-          <div className="hud-corner-info bl"><HUDReadout label="LOCATION" value="GLOBAL" /></div>
-          <div className="hud-corner-info br"><HUDReadout label="PROTOCOL" value="V.4.2" /></div>
-          <div className="scanning-bar" />
-        </div>
 
         {/* ── BACKGROUND ── */}
         <div className="hero-bg">
@@ -169,13 +160,13 @@ export default function Hero() {
               >
                 Digitally with
               </motion.span>
-              <motion.span 
+              <motion.span
                 className="highlight"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
               >
-                BOTMATE
+                {glitchedHighlight}
               </motion.span>
             </h1>
 
@@ -235,32 +226,6 @@ export default function Hero() {
 
 
 
-        /* ══ HUD ══ */
-        .hero-hud-frame {
-          position: absolute;
-          inset: 32px;
-          z-index: 10;
-          pointer-events: none;
-        }
-        .hud-corner-info { position: absolute; }
-        .tl { top: 12px; left: 12px; }
-        .tr { top: 12px; right: 12px; text-align: right; }
-        .bl { bottom: 12px; left: 12px; }
-        .br { bottom: 12px; right: 12px; text-align: right; }
-
-        .scanning-bar {
-          position: absolute;
-          left: 0; right: 0;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, #00e5ff, transparent);
-          box-shadow: 0 0 15px #00e5ff;
-          opacity: 0.3;
-          animation: scanVertical 6s ease-in-out infinite;
-        }
-        @keyframes scanVertical {
-          0%, 100% { top: 0%; }
-          50% { top: 100%; }
-        }
 
         /* ══ BACKGROUND ══ */
         .hero-bg { position: absolute; inset: 0; z-index: 0; }
