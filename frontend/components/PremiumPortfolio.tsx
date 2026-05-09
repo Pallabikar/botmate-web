@@ -110,7 +110,7 @@ export default function PremiumPortfolio() {
                                         {/* Overlay Stats */}
                                          <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex gap-3 sm:gap-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
                                             {project.stats.map((stat, i) => (
-                                                <div key={i} className="bg-black/80 backdrop-blur-md px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-[#00AFFF]/30">
+                                                <div key={i} className="bg-[#04080f]/92 px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-[#00AFFF]/30">
                                                     <p className="text-[#00AFFF] text-[10px] sm:text-xs uppercase tracking-wider mb-1">{stat.label}</p>
                                                     <p className="text-white text-sm sm:text-base font-bold">{stat.value}</p>
                                                 </div>

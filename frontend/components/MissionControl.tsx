@@ -17,7 +17,7 @@ export default function MissionControl() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="max-w-4xl mx-auto text-center bg-[#0f151a]/80 backdrop-blur-xl border border-[#00AFFF]/30 rounded-3xl p-8 md:p-16 lg:p-24 shadow-[0_0_80px_rgba(0,175,255,0.15)]"
+                    className="max-w-4xl mx-auto text-center bg-[#04080f]/92 border border-[#00AFFF]/30 rounded-3xl p-8 md:p-16 lg:p-24 shadow-[0_0_80px_rgba(0,175,255,0.15)]"
                 >
                     <div className="w-16 h-16 mx-auto bg-[#00AFFF] rounded-full flex items-center justify-center mb-8 shadow-[0_0_30px_#00AFFF]">
                         <Terminal className="text-black w-8 h-8" />

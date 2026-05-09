@@ -13,27 +13,7 @@ const MorphBlob = dynamic(() => import("@/components/MorphBlob"), { ssr: false, 
 /* ─────────────────────────────────────────────
    GLITCH TEXT HOOK
 ───────────────────────────────────────────── */
-function useGlitchText(text: string, trigger: boolean) {
-  const [display, setDisplay] = useState(text);
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
-  useEffect(() => {
-    if (!trigger) return;
-    let iter = 0;
-    const interval = setInterval(() => {
-      setDisplay(
-        text.split("").map((letter, idx) => {
-          if (idx < iter) return letter;
-          if (letter === " ") return " ";
-          return chars[Math.floor(Math.random() * chars.length)];
-        }).join("")
-      );
-      if (iter >= text.length) clearInterval(interval);
-      iter += 0.5;
-    }, 30);
-    return () => clearInterval(interval);
-  }, [trigger, text]);
-  return display;
-}
+
 
 /* ─────────────────────────────────────────────
    AR CORNER BRACKETS
@@ -137,7 +117,7 @@ const SERVICES = [
 function ServicesSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
-  const glitchedTitle = useGlitchText("What We Do", inView);
+  const glitchedTitle = "What We Do";
 
   return (
     <section className="section services-section optimized-bg-pattern" ref={ref}>
@@ -237,7 +217,7 @@ const FEATURES = [
 function StatsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
-  const glitchedTitle = useGlitchText("Why Choose Us", inView);
+  const glitchedTitle = "Why Choose Us";
 
   return (
     <section className="section stats-section optimized-bg-pattern" ref={ref}>
@@ -326,7 +306,7 @@ function ProcessSection() {
   });
   
   const inView = useInView(ref, { once: true, amount: 0.2 });
-  const glitchedTitle = useGlitchText("Our Process", inView);
+  const glitchedTitle = "Our Process";
 
   return (
     <section className="section process-section" ref={ref}>
@@ -337,6 +317,7 @@ function ProcessSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
+            style={{ minHeight: "inherit" }}
           >
             {glitchedTitle}
           </motion.h2>
@@ -453,7 +434,7 @@ const PLANS = [
 function PricingSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
-  const glitchedTitle = useGlitchText("Choose Your Plan", inView);
+  const glitchedTitle = "Choose Your Plan";
 
   return (
     <section className="section pricing-section" ref={ref}>
@@ -540,7 +521,7 @@ function TestimonialsSection() {
   const total = TESTIMONIALS.length;
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
-  const glitchedTitle = useGlitchText("What Clients Say", inView);
+  const glitchedTitle = "What Clients Say";
 
   /* auto-advance */
   useEffect(() => {
@@ -562,6 +543,7 @@ function TestimonialsSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
+            style={{ minHeight: "inherit" }}
           >
             {glitchedTitle}
           </motion.h2>
@@ -587,6 +569,7 @@ function TestimonialsSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
+            style={{ minHeight: "inherit" }}
           >
             {TESTIMONIALS.map((t, i) => (
               <button
@@ -916,7 +899,7 @@ function TestimonialsSection() {
 function CTABanner() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
-  const glitchedTitle = useGlitchText("Ready to Grow Your Brand?", inView);
+  const glitchedTitle = "Ready to Grow Your Brand?";
 
   return (
     <section className="cta-section" ref={ref}>
@@ -1061,6 +1044,8 @@ export default function HomeClient() {
           padding: 10px 0;
           width: max-content;
           animation: marqueeScroll 30s linear infinite;
+          will-change: transform;
+          transform: translateZ(0);
         }
         .marquee-brand {
           font-size: 13px; font-weight: 700;

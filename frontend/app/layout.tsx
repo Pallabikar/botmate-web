@@ -6,17 +6,20 @@ import Navbar from "@/components/Navbar";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -52,11 +55,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
-import CustomCursor from "@/components/CustomCursor";
-import WhatsAppPopup from "@/components/WhatsAppPopup";
-import ChatBotPopup from "@/components/ChatBotPopup";
+import ClientPopups from "@/components/ClientPopups";
 
 export default function RootLayout({
   children,
@@ -64,19 +66,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" style={{ backgroundColor: '#060a0f' }}>
+    <html lang="en" className="bg-[#060a0f]">
       <head>
-        <style dangerouslySetInnerHTML={{ __html: `
-          html, body { background-color: #060a0f !important; color: #ffffff !important; }
-        ` }} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`} style={{ backgroundColor: '#060a0f' }}>
-        <CustomCursor />
+      <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased bg-[#060a0f] text-white`}>
+        <ClientPopups />
         <Navbar />
         {children}
-        <ChatBotPopup />
-        <WhatsAppPopup />
       </body>
     </html>
   );
 }
+

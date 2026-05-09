@@ -82,7 +82,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="p-6 rounded-xl border border-white/10 bg-[#0B0F14]/70 backdrop-blur-xl"
+      className="p-6 rounded-xl border border-white/10 bg-[#04080f]/92"
     >
       {children}
     </motion.div>

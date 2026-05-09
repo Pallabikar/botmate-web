@@ -9,27 +9,7 @@ import Magnetic from "./Magnetic";
 /* ─────────────────────────────────────────────
    GLITCH TEXT HOOK
 ───────────────────────────────────────────── */
-function useGlitchText(text: string, trigger: boolean) {
-  const [display, setDisplay] = useState(text);
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
-  useEffect(() => {
-    if (!trigger) return;
-    let iter = 0;
-    const interval = setInterval(() => {
-      setDisplay(
-        text.split("").map((letter, idx) => {
-          if (idx < iter) return letter;
-          if (letter === " ") return " ";
-          return chars[Math.floor(Math.random() * chars.length)];
-        }).join("")
-      );
-      if (iter >= text.length) clearInterval(interval);
-      iter += 0.5;
-    }, 30);
-    return () => clearInterval(interval);
-  }, [trigger, text]);
-  return display;
-}
+
 
 /* ─────────────────────────────────────────────
    AR CORNER BRACKETS
@@ -111,7 +91,7 @@ export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true });
-  const glitchedHighlight = useGlitchText("BOTMATE", isInView);
+
 
   useEffect(() => {
     if (videoRef.current) {
@@ -133,11 +113,6 @@ export default function Hero() {
           <div className="speed-lines" />
           <div className="glow-blob" />
           <div className="glow-blob glow-blob-2" />
-          <div className="particles">
-            {[...Array(18)].map((_, i) => (
-              <span key={i} className="particle" style={{ "--i": i } as React.CSSProperties} />
-            ))}
-          </div>
         </div>
 
         {/* ── CONTENT ── */}
@@ -160,13 +135,13 @@ export default function Hero() {
               >
                 Digitally with
               </motion.span>
-              <motion.span
+            <motion.span
                 className="highlight"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
               >
-                {glitchedHighlight}
+                BOTMATE
               </motion.span>
             </h1>
 
@@ -201,8 +176,6 @@ export default function Hero() {
       </section>
 
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         /* ══ SHELL ══ */
@@ -264,18 +237,6 @@ export default function Hero() {
           width: 480px; height: 480px;
           background: radial-gradient(circle, rgba(0,80,180,0.08) 0%, transparent 70%);
           animation-delay: 2s;
-        }
-
-        .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-        .particle {
-          position: absolute;
-          width: 2px; height: 2px;
-          background: rgba(0,229,255,0.55);
-          border-radius: 50%;
-          top:  calc(10% + var(--i) * 5%);
-          left: calc(5%  + var(--i) * 5.2%);
-          animation: floatParticle calc(6s + var(--i) * 0.4s) ease-in-out infinite alternate;
-          animation-delay: calc(var(--i) * 0.35s);
         }
 
         /* ══ LAYOUT ══ */
@@ -362,10 +323,7 @@ export default function Hero() {
           from { opacity: 0.6; transform: translateY(-50%) scale(1); }
           to   { opacity: 1;   transform: translateY(-50%) scale(1.1); }
         }
-        @keyframes floatParticle {
-          from { transform: translateY(0) translateX(0); opacity: 0.3; }
-          to   { transform: translateY(-28px) translateX(12px); opacity: 0.8; }
-        }
+
 
         /* ══ RESPONSIVE ══ */
         @media (max-width: 960px) {

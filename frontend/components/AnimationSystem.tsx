@@ -56,6 +56,7 @@ export const AnimatedSection = ({ children, className, delay = 0 }: { children: 
       variants={VARIANTS.fadeInUp}
       transition={{ ...TRANSITION_MEDIUM, delay }}
       className={className}
+      style={{ minHeight: "inherit" }}
     >
       {children}
     </motion.div>
@@ -161,6 +162,7 @@ export const RevealItem = ({ children, className }: { children: React.ReactNode;
       variants={VARIANTS.fadeInUp}
       transition={TRANSITION_MEDIUM}
       className={className}
+      style={{ minHeight: "inherit" }}
     >
       {children}
     </motion.div>

@@ -107,7 +107,6 @@ export default function Navbar() {
           align-items: center;
           justify-content: space-between;
           padding: 0 60px;
-          background: rgba(4, 8, 15, 0.85);
           background: rgba(4, 8, 15, 0.92);
           z-index: 1200;
         }

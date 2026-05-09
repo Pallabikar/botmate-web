@@ -1,3 +1,4 @@
+* { box-sizing: border-box; }
 html, body { background-color: #060a0f !important; color: #fff; margin: 0; padding: 0; }
 @import "tailwindcss";
 
@@ -32,8 +33,20 @@ html, body {
   border: 1px solid rgba(0, 175, 255, 0.1);
 }
 
-.morph-blob, .holo-grid, .glow-blob, .aurora-wrap { will-change: transform; transform: translateZ(0); }
-.hero-video-bg { will-change: auto; }
+.morph-blob,
+.holo-grid,
+.glow-blob,
+.particle,
+.aurora-wrap,
+.scanning-bar,
+.speed-lines,
+.marquee-track,
+.hero-video-bg {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
 
 /* Performance Fix: Background pattern to replace ParticleField */
 .optimized-bg-pattern {

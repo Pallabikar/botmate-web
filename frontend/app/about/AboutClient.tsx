@@ -9,27 +9,7 @@ import { AnimatedSection, AnimatedText, StaggerReveal, RevealItem } from "@/comp
 /* ─────────────────────────────────────────────
    GLITCH TEXT HOOK
 ───────────────────────────────────────────── */
-function useGlitchText(text: string, trigger: boolean) {
-  const [display, setDisplay] = useState(text);
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
-  useEffect(() => {
-    if (!trigger) return;
-    let iter = 0;
-    const interval = setInterval(() => {
-      setDisplay(
-        text.split("").map((letter, idx) => {
-          if (idx < iter) return letter;
-          if (letter === " ") return " ";
-          return chars[Math.floor(Math.random() * chars.length)];
-        }).join("")
-      );
-      if (iter >= text.length) clearInterval(interval);
-      iter += 0.5;
-    }, 30);
-    return () => clearInterval(interval);
-  }, [trigger, text]);
-  return display;
-}
+
 
 /* ─────────────────────────────────────────────
    AR CORNER BRACKETS
@@ -128,7 +108,7 @@ function RadarSweep() {
 function EnhancedPageHeader({ title, subtitle }: { title: string; subtitle: string }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
-  const glitchedTitle = useGlitchText(title, inView);
+  const glitchedTitle = title;
 
   const subtitleWords = subtitle.split(" ");
 
@@ -577,6 +557,7 @@ function ValuesSection() {
               animate={inView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 + i * 0.15, ease: [0.23, 1, 0.32, 1] }}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              style={{ minHeight: "inherit" }}
             >
               {/* AR targeting brackets */}
               <div className="card-ar-brackets">

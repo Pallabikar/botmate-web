@@ -30,6 +30,7 @@ function MorphCard({ children, delay = 0, className = "" }: {
       viewport={{ once: true }}
       transition={{ delay, duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
       animate={{ borderRadius: hovered ? "12px 32px 12px 32px" : "24px" }}
+      style={{ minHeight: "inherit" }}
     >
       {children}
       <style jsx>{`
@@ -98,7 +99,7 @@ function MorphIcon({ type }: { type: "email" | "phone" | "location" }) {
   };
   const [toggled, setToggled] = useState(false);
   useEffect(() => {
-    const t = setInterval(() => setToggled(p => !p), 3000);
+    const t = setInterval(() => setToggled(p => !p), 6000);
     return () => clearInterval(t);
   }, []);
 
@@ -428,6 +429,7 @@ function ContactForm() {
           initial={{ opacity: 0, y: 50, borderRadius: "40px" }}
           animate={inView ? { opacity: 1, y: 0, borderRadius: "32px" } : {}}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
+          style={{ minHeight: "inherit" }}
         >
           {/* Morphing decorative top strip */}
           <div className="form-top-strip">
@@ -545,6 +547,7 @@ function MapSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
+            style={{ minHeight: "inherit" }}
           >
             Find Us <span className="cyan">Here</span>
           </motion.h2>
