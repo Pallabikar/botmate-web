@@ -996,15 +996,13 @@ export default function HomeClient() {
       <SiteFooter />
 
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
-
         html { scroll-behavior: smooth; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
           background: #060a0f;
           color: #fff;
-          font-family: 'Montserrat', sans-serif;
+          font-family: var(--font-montserrat), var(--font-geist-sans), sans-serif;
           overflow-x: hidden;
         }
         .home-main { background: #060a0f; }
@@ -1381,7 +1379,7 @@ export default function HomeClient() {
         .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .cta-btn-primary {
           background: #00e5ff; color: #060a0f;
-          font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700;
+          font-family: var(--font-montserrat), sans-serif; font-size: 15px; font-weight: 700;
           padding: 16px 44px; border-radius: 50px; text-decoration: none;
           box-shadow: 0 4px 26px rgba(0,229,255,0.44);
           transition: all .25s;
@@ -1396,7 +1394,7 @@ export default function HomeClient() {
         }
         .cta-btn-outline {
           background: transparent; color: #fff;
-          font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 600;
+          font-family: var(--font-montserrat), sans-serif; font-size: 15px; font-weight: 600;
           padding: 15px 44px; border-radius: 50px;
           border: 2px solid rgba(255,255,255,0.32);
           text-decoration: none; transition: all .25s;

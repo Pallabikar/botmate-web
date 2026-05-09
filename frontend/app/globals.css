@@ -1,3 +1,4 @@
+html, body { background-color: #060a0f !important; color: #fff; margin: 0; padding: 0; }
 @import "tailwindcss";
 
 :root {

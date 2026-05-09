@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
@@ -11,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -58,8 +64,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" style={{ backgroundColor: '#060a0f' }}>
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: `
+          html, body { background-color: #060a0f !important; color: #ffffff !important; }
+        ` }} />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`} style={{ backgroundColor: '#060a0f' }}>
         <CustomCursor />
         <Navbar />
         {children}

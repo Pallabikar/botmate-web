@@ -17,28 +17,10 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Scroll Progress
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const progress = totalHeight > 0 ? window.scrollY / totalHeight : 0;
-      setScrollProgress(progress);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
-      {/* SCROLL PROGRESS BAR */}
-      <motion.div
-        className="progress-bar"
-        style={{ scaleX: scrollProgress }}
-      />
 
       {/*
         KEY FIX: navbar z-index is now 1200, ABOVE the mobile-menu overlay
@@ -111,17 +93,6 @@ export default function Navbar() {
       </nav>
 
       <style jsx global>{`
-        /* ══ SCROLL PROGRESS ══ */
-        .progress-bar {
-          position: fixed;
-          top: 0; left: 0;
-          height: 3px;
-          width: 100%;
-          background: #00e5ff;
-          transform-origin: left;
-          /* Must be above everything */
-          z-index: 2000;
-        }
 
         /* ══ NAVBAR ══
            z-index: 1200 — sits ABOVE the mobile overlay (1100)

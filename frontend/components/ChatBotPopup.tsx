@@ -178,6 +178,7 @@ export default function ChatBotPopup() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                   placeholder="Ask BotMate..."
+                  aria-label="Ask BotMate"
                 />
                  <button onClick={sendMessage} className="chat-send" aria-label="Send Message">
                   <Send size={16} />

@@ -136,17 +136,6 @@ function EnhancedPageHeader({ title, subtitle }: { title: string; subtitle: stri
     <section className="hero-header optimized-bg-pattern" ref={ref}>
       <HoloGrid />
 
-      {/* AR HUD corners */}
-      <div className="hud-frame" aria-hidden="true">
-        <ARBrackets size={32} color="#00e5ff" thickness={2} />
-        <div className="hud-tl"><HUDReadout label="SYS.STATUS" value="ONLINE" /></div>
-        <div className="hud-tr"><HUDReadout label="NEURAL.LINK" value="94.7%" /></div>
-        <div className="hud-bl"><HUDReadout label="AI.CORE" value="ACTIVE" /></div>
-        <div className="hud-br"><HUDReadout label="UPTIME" value="99.9%" /></div>
-      </div>
-
-      {/* Scanning line */}
-      <div className="hero-scan" aria-hidden="true" />
 
       <div className="hero-content">
         {/* Pre-title tag */}
@@ -163,18 +152,13 @@ function EnhancedPageHeader({ title, subtitle }: { title: string; subtitle: stri
 
         {/* Glitch Title */}
         <h1 className="hero-title">
-          {glitchedTitle.split("").map((char, i) => (
-            <motion.span
-              key={i}
-              className="char"
-              initial={{ opacity: 0, y: 60, rotateX: -90 }}
-              animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.04, ease: [0.23, 1, 0.32, 1] }}
-              style={{ display: "inline-block", whiteSpace: char === " " ? "pre" : "normal" }}
-            >
-              {char}
-            </motion.span>
-          ))}
+          <motion.span
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            {glitchedTitle}
+          </motion.span>
         </h1>
 
         {/* Underline accent */}
@@ -218,21 +202,7 @@ function EnhancedPageHeader({ title, subtitle }: { title: string; subtitle: stri
           overflow: hidden;
           border-bottom: 1px solid rgba(0,229,255,0.08);
         }
-        .hero-scan {
-          position: absolute; left: 0; right: 0; height: 1px;
-          background: linear-gradient(90deg, transparent, #00e5ff, transparent);
-          animation: heroScan 4s ease-in-out infinite;
-          opacity: 0.4;
-        }
-        @keyframes heroScan { 0%, 100% { top: 20%; } 50% { top: 80%; } }
 
-        .hud-frame {
-          position: absolute; inset: 24px; pointer-events: none;
-        }
-        .hud-tl { position: absolute; top: 12px; left: 12px; }
-        .hud-tr { position: absolute; top: 12px; right: 12px; text-align: right; }
-        .hud-bl { position: absolute; bottom: 12px; left: 12px; }
-        .hud-br { position: absolute; bottom: 12px; right: 12px; text-align: right; }
 
         .hero-content {
           position: relative; z-index: 2;

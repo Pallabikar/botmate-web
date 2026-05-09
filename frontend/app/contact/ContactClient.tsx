@@ -287,6 +287,7 @@ function MorphInput({ type = "text", placeholder, required = false, as = "input"
         <Tag
           type={type}
           placeholder={placeholder}
+          aria-label={placeholder}
           required={required}
           rows={rows}
           onFocus={() => setFocused(true)}

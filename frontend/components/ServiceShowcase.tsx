@@ -128,6 +128,7 @@ const ServiceBlock = ({ title, description, bullets, image, placeholderType, rev
                     target={link?.startsWith("http") ? "_blank" : undefined}
                     rel={link?.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="inline-block"
+                    aria-label={`Learn more about ${title}`}
                 >
                     <button className="group relative px-8 py-4 bg-transparent border border-[#00AFFF] text-white rounded-full overflow-hidden transition-all hover:bg-[#00AFFF] hover:shadow-[0_0_30px_rgba(0,170,255,0.5)]">
                         <span className="relative z-10 flex items-center font-semibold tracking-wide">

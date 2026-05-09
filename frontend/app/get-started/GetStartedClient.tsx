@@ -167,11 +167,11 @@ function ContactForm() {
         <div className="form-container">
           <form className="cf-form">
             <div className="input-group">
-              <input type="text" placeholder="Your Name" required />
-              <input type="email" placeholder="Business Email" required />
+              <input type="text" placeholder="Your Name" aria-label="Your Name" required />
+              <input type="email" placeholder="Business Email" aria-label="Business Email" required />
             </div>
-            <input type="text" placeholder="Subject" required />
-            <textarea placeholder="Tell us about your project goals..." rows={6} required />
+            <input type="text" placeholder="Subject" aria-label="Subject" required />
+            <textarea placeholder="Tell us about your project goals..." aria-label="Tell us about your project goals" rows={6} required />
             <button type="submit" className="submit-btn" aria-label="Submit project requirements">Initiate Connection</button>
           </form>
         </div>

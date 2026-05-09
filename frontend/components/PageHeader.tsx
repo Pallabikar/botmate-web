@@ -56,17 +56,13 @@ export default function PageHeader({ title, subtitle }: PageHeaderProps) {
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       >
         <h1 className="header-title" style={{ transform: "translateZ(30px)" }}>
-          {title.split("").map((char, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, scale: 0.5, rotateX: -90 }}
-              animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
-              style={{ display: "inline-block", whiteSpace: char === " " ? "pre" : "normal" }}
-            >
-              {char}
-            </motion.span>
-          ))}
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            {title}
+          </motion.span>
         </h1>
         {subtitle && (
           <motion.p 

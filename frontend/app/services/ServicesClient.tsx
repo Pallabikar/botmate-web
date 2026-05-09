@@ -530,8 +530,7 @@ function TechStack() {
 
 /* ─── PAGE HEADER ───────────────────────────────────────────────────── */
 function ServicesHeader() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setLoaded(true), 80); return () => clearTimeout(t); }, []);
+  const loaded = true;
   return (
     <header className="svc-header">
       <div className="header-grid" />

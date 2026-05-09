@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import Image from 'next/image';
 
 import './BubbleMenu.css';
 
@@ -164,7 +165,11 @@ export default function BubbleMenu({
       <nav className={containerClassName} style={style} aria-label="Main navigation">
         <div className="bubble logo-bubble" aria-label="Logo" style={{ background: menuBg }}>
           <span className="logo-content">
-            {typeof logo === 'string' ? <img src={logo} alt="Logo" className="bubble-logo" /> : logo}
+            {typeof logo === 'string' ? (
+              <Image src={logo} alt="Logo" width={40} height={40} className="bubble-logo" />
+            ) : (
+              logo
+            )}
           </span>
         </div>
 

@@ -208,7 +208,7 @@ export default function CustomCursor() {
         }
       `}</style>
 
-      <div className="cursor-root" style={{ opacity: isVisible ? 1 : 0 }}>
+      <div className="cursor-root" style={{ opacity: 1 }}>
 
         {/* Trail particles */}
         {trail.map((t, i) => (
