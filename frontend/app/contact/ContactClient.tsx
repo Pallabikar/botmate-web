@@ -262,70 +262,162 @@ function ContactGrid() {
     </section>
   );
 }
-
 /* ─────────────────────────────────────────────
-   MORPHING FORM FIELD
+   ANIMATED COUNTER
 ───────────────────────────────────────────── */
-function MorphInput({ type = "text", placeholder, required = false, as = "input", rows }: {
-  type?: string; placeholder: string; required?: boolean;
-  as?: "input" | "textarea"; rows?: number;
-}) {
-  const [focused, setFocused] = useState(false);
-  const [filled, setFilled] = useState(false);
-  const Tag = as as any;
+function Counter({ to, label }: { to: number; label: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const duration = 1200;
+    const step = Math.ceil(to / (duration / 16));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= to) { setCount(to); clearInterval(timer); }
+      else setCount(start);
+    }, 16);
+    return () => clearInterval(timer);
+  }, [inView, to]);
 
   return (
-    <div className="morph-field">
-      <motion.div
-        className="field-border"
-        animate={{
-          borderRadius: focused ? "8px 24px 8px 24px" : "14px",
-          borderColor: focused ? "rgba(0,229,255,0.6)" : filled ? "rgba(0,229,255,0.25)" : "rgba(255,255,255,0.08)",
-          boxShadow: focused ? "0 0 0 4px rgba(0,229,255,0.06), 0 0 20px rgba(0,229,255,0.1)" : "none",
-        }}
-        transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-      >
-        <Tag
-          type={type}
-          placeholder={placeholder}
-          aria-label={placeholder}
-          required={required}
-          rows={rows}
-          onFocus={() => setFocused(true)}
-          onBlur={(e: any) => { setFocused(false); setFilled(e.target.value.length > 0); }}
-          className="field-input"
-        />
-        <AnimatePresence>
-          {focused && (
-            <motion.div
-              className="field-scanner"
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              exit={{ scaleX: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          )}
-        </AnimatePresence>
-      </motion.div>
+    <div className="stat-item" ref={ref}>
+      <span className="stat-num">{count}+</span>
+      <span className="stat-label">{label}</span>
       <style jsx>{`
-        .morph-field { position: relative; }
-        .field-border {
-          position: relative; border: 1px solid; overflow: hidden;
-          transition: background 0.3s;
-          background: rgba(4, 8, 15, 0.6);
+        .stat-item { display: flex; flex-direction: column; align-items: center; }
+        .stat-num { font-size: 32px; font-weight: 900; color: #00e5ff; line-height: 1; letter-spacing: -1px; }
+        .stat-label { font-size: 11px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 4px; font-family: monospace; }
+      `}</style>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   LEFT PANEL — Info + Stats
+───────────────────────────────────────────── */
+function LeftPanel() {
+  const items = [
+    { icon: "⬡", title: "Strategic Consultation", desc: "We analyze your goals and craft a bespoke digital roadmap." },
+    { icon: "⬡", title: "AI-Powered Automation", desc: "Deploy intelligent bots that work for your brand 24/7." },
+    { icon: "⬡", title: "Rapid Response", desc: "Our team responds within 24 hours with a tailored proposal." },
+  ];
+
+  return (
+    <div className="left-panel">
+      {/* Top badge */}
+      <div className="panel-badge">
+        <span className="badge-dot" />
+        <span>BOTMATE OPERATIONS</span>
+      </div>
+
+      {/* Headline */}
+      <h2 className="panel-title">
+        Let&apos;s Build Something <span className="cyan">Extraordinary</span>
+      </h2>
+      <p className="panel-sub">
+        Tell us your vision. We&apos;ll turn it into a precision-engineered digital experience.
+      </p>
+
+      {/* Feature list */}
+      <div className="feature-list">
+        {items.map((item, i) => (
+          <motion.div
+            key={i}
+            className="feature-row"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 + i * 0.15, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <div className="feature-icon-wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <polygon points="8,1 15,4.5 15,11.5 8,15 1,11.5 1,4.5" stroke="#00e5ff" strokeWidth="1" fill="rgba(0,229,255,0.08)" />
+              </svg>
+            </div>
+            <div>
+              <p className="feature-title">{item.title}</p>
+              <p className="feature-desc">{item.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Divider */}
+      <div className="panel-divider" />
+
+      {/* Stats row */}
+      <div className="stats-row">
+        <Counter to={150} label="Clients Served" />
+        <div className="stat-sep" />
+        <Counter to={98} label="Satisfaction %" />
+        <div className="stat-sep" />
+        <Counter to={500} label="Projects Done" />
+      </div>
+
+      {/* Bottom decoration */}
+      <div className="panel-grid-bg" aria-hidden="true" />
+
+      <style jsx>{`
+        .left-panel {
+          position: relative; overflow: hidden;
+          background: rgba(0,229,255,0.03);
+          border: 1px solid rgba(0,229,255,0.12);
+          border-radius: 24px;
+          padding: 48px 40px;
+          display: flex; flex-direction: column; gap: 0;
         }
-        .field-border:focus-within { background: rgba(0,229,255,0.02); }
-        :global(.field-input) {
-          width: 100%; background: transparent;
-          border: none; padding: 18px 24px;
-          color: #fff; font-family: inherit; font-size: 15px;
-          outline: none; resize: none; display: block;
+        .panel-badge {
+          display: inline-flex; align-items: center; gap: 8px;
+          font-family: monospace; font-size: 10px; letter-spacing: 0.25em;
+          color: #00e5ff; background: rgba(0,229,255,0.06);
+          border: 1px solid rgba(0,229,255,0.15);
+          padding: 6px 14px; border-radius: 50px;
+          margin-bottom: 28px; width: fit-content;
         }
-        :global(.field-input::placeholder) { color: rgba(255,255,255,0.28); }
-        .field-scanner {
-          position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-          background: linear-gradient(90deg, transparent, #00e5ff, transparent);
-          transform-origin: left;
+        .badge-dot {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: #00e5ff;
+          animation: blink 2s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        .panel-title {
+          font-size: clamp(24px, 3vw, 34px); font-weight: 900;
+          color: #fff; line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.5px;
+        }
+        .cyan { color: #00e5ff; }
+        .panel-sub { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; margin-bottom: 36px; }
+
+        .feature-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 36px; }
+        .feature-row { display: flex; gap: 14px; align-items: flex-start; }
+        .feature-icon-wrap {
+          width: 32px; height: 32px; border-radius: 8px;
+          background: rgba(0,229,255,0.06); border: 1px solid rgba(0,229,255,0.12);
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0; margin-top: 2px;
+        }
+        .feature-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 3px; }
+        .feature-desc { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6; }
+
+        .panel-divider {
+          height: 1px; background: linear-gradient(90deg, transparent, rgba(0,229,255,0.15), transparent);
+          margin-bottom: 32px;
+        }
+        .stats-row { display: flex; align-items: center; justify-content: space-between; }
+        .stat-sep { width: 1px; height: 40px; background: rgba(0,229,255,0.1); }
+
+        .panel-grid-bg {
+          position: absolute; inset: 0; pointer-events: none; z-index: 0;
+          background-image:
+            linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
+          background-size: 32px 32px;
+          mask-image: radial-gradient(ellipse at bottom right, black 0%, transparent 60%);
+          -webkit-mask-image: radial-gradient(ellipse at bottom right, black 0%, transparent 60%);
         }
       `}</style>
     </div>
@@ -333,72 +425,381 @@ function MorphInput({ type = "text", placeholder, required = false, as = "input"
 }
 
 /* ─────────────────────────────────────────────
-   MORPHING SUBMIT BUTTON
+   FLOATING LABEL INPUT
 ───────────────────────────────────────────── */
-function MorphButton() {
-  const [state, setState] = useState<"idle"|"sending"|"done">("idle");
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setState("sending");
-    setTimeout(() => setState("done"), 1800);
-    setTimeout(() => setState("idle"), 3500);
-  };
-
-  const labels = { idle: "Initiate Connection", sending: "Transmitting...", done: "✓ Message Sent" };
-  const colors = { idle: "#00e5ff", sending: "#0080aa", done: "#00ff9d" };
+function FloatInput({
+  type = "text", name, label, required = false,
+  as = "input", rows,
+}: {
+  type?: string; name: string; label: string;
+  required?: boolean; as?: "input" | "textarea"; rows?: number;
+}) {
+  const [focused, setFocused] = useState(false);
+  const [val, setVal] = useState("");
+  const raised = focused || val.length > 0;
+  const Tag = as as any;
 
   return (
-    <motion.button
-      className="morph-btn"
-      type="submit"
-      aria-label={labels[state]}
-      onClick={handleClick}
-      animate={{
-        background: colors[state],
-        borderRadius: state === "sending" ? "50px" : state === "done" ? "12px 40px 12px 40px" : "50px",
-        scale: state === "sending" ? 0.97 : 1,
-      }}
-      whileHover={{ scale: state === "idle" ? 1.03 : 1 }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-    >
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={state}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.2 }}
-        >
-          {labels[state]}
-        </motion.span>
-      </AnimatePresence>
-      {state === "sending" && <div className="btn-ripple" />}
+    <div className={`float-field ${focused ? "is-focused" : ""} ${raised ? "is-raised" : ""}`}>
+      <Tag
+        type={type}
+        name={name}
+        id={name}
+        required={required}
+        rows={rows}
+        value={val}
+        onChange={(e: any) => setVal(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className="float-input"
+        aria-label={label}
+      />
+      <label htmlFor={name} className="float-label">{label}</label>
+      <motion.div
+        className="float-underline"
+        animate={{ scaleX: focused ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+      />
       <style jsx>{`
-        .morph-btn {
-          width: 100%; padding: 20px;
-          border: none; font-weight: 800; font-size: 16px;
-          cursor: pointer; color: #060a0f; position: relative; overflow: hidden;
-          font-family: inherit; letter-spacing: 0.02em;
-          box-shadow: 0 6px 24px rgba(0,229,255,0.2);
+        .float-field {
+          position: relative;
+          background: rgba(4, 8, 15, 0.6);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 10px;
+          transition: border-color 0.3s, background 0.3s;
         }
-        .btn-ripple {
+        .float-field.is-focused {
+          border-color: rgba(0,229,255,0.4);
+          background: rgba(0,229,255,0.02);
+        }
+        .float-input {
+          width: 100%; background: transparent; border: none;
+          padding: 26px 18px 10px;
+          color: #fff; font-size: 15px; font-family: inherit;
+          outline: none; resize: none; display: block;
+          line-height: 1.5;
+        }
+        .float-label {
+          position: absolute; left: 18px;
+          font-size: 13px; color: rgba(255,255,255,0.3);
+          pointer-events: none; transition: all 0.25s ease;
+          top: 50%; transform: translateY(-50%);
+        }
+        textarea ~ .float-label { top: 20px; transform: none; }
+        .is-raised .float-label, .is-focused .float-label {
+          top: 10px; transform: none;
+          font-size: 10px; letter-spacing: 0.1em;
+          color: #00e5ff;
+        }
+        textarea.float-input { min-height: 120px; }
+        .float-underline {
+          position: absolute; bottom: 0; left: 10%; right: 10%; height: 2px;
+          background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+          transform-origin: center; border-radius: 2px;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   THANK YOU OVERLAY
+───────────────────────────────────────────── */
+function ThankYouOverlay({ onClose }: { onClose: () => void }) {
+  return (
+    <motion.div
+      className="ty-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <motion.div
+        className="ty-box"
+        initial={{ scale: 0.85, y: 30 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.85, y: 30 }}
+        transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+      >
+        {/* Animated hex */}
+        <div className="ty-hex">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <polygon points="32,4 60,18 60,46 32,60 4,46 4,18"
+              stroke="#00e5ff" strokeWidth="1.5" fill="rgba(0,229,255,0.08)"
+              style={{ animation: "hexSpin 6s linear infinite", transformOrigin: "center" }}
+            />
+            <text x="32" y="37" textAnchor="middle" fill="#00e5ff" fontSize="20" fontWeight="900">✓</text>
+          </svg>
+        </div>
+        <h3 className="ty-title">Transmission Received</h3>
+        <p className="ty-msg">Your message has been received. Our team will get back to you within <strong>24 hours</strong> with a tailored strategy proposal.</p>
+        <button className="ty-btn" onClick={onClose}>← Send Another</button>
+      </motion.div>
+      <style jsx>{`
+        .ty-overlay {
+          position: absolute; inset: 0; z-index: 20;
+          background: rgba(4,8,15,0.96);
+          display: flex; align-items: center; justify-content: center;
+          border-radius: inherit;
+        }
+        .ty-box {
+          text-align: center; padding: 48px 40px; max-width: 400px;
+        }
+        .ty-hex { margin-bottom: 24px; }
+        @keyframes hexSpin { to { transform: rotate(360deg); } }
+        .ty-title { font-size: 26px; font-weight: 900; color: #fff; margin: 0 0 14px; }
+        .ty-msg { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.7; margin: 0 0 32px; }
+        .ty-msg strong { color: #00e5ff; }
+        .ty-btn {
+          padding: 12px 36px; border-radius: 50px;
+          background: transparent; border: 1px solid rgba(0,229,255,0.3);
+          color: #00e5ff; font-size: 14px; font-weight: 700;
+          cursor: pointer; transition: all 0.3s; font-family: inherit;
+        }
+        .ty-btn:hover { background: rgba(0,229,255,0.08); border-color: rgba(0,229,255,0.6); }
+      `}</style>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   RIGHT PANEL — The Form
+───────────────────────────────────────────── */
+function RightPanel() {
+  const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
+  const [showThanks, setShowThanks] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+    setTimeout(() => { setStatus("done"); setShowThanks(true); }, 1800);
+    setTimeout(() => setStatus("idle"), 3800);
+  };
+
+  const btnLabel = { idle: "Send Transmission", sending: "Transmitting…", done: "✓ Sent" };
+  const btnColor = { idle: "#00e5ff", sending: "#0080aa", done: "#00ff9d" };
+
+  return (
+    <div className="right-panel">
+      {/* Terminal-style top bar */}
+      <div className="panel-topbar">
+        <div className="tb-dots">
+          <span /><span /><span />
+        </div>
+        <span className="tb-title">BOTMATE // SECURE.FORM v2.0</span>
+        <div className="tb-status">
+          <span className="tb-dot" />
+          <span>LIVE</span>
+        </div>
+      </div>
+
+      <form className="cf-form" onSubmit={handleSubmit}>
+        {/* Row 1 */}
+        <div className="form-row">
+          <FloatInput name="name" label="Full Name" required />
+          <FloatInput name="phone" type="tel" label="Phone Number" required />
+        </div>
+
+        {/* Row 2 */}
+        <div className="form-row">
+          <FloatInput name="email" type="email" label="Email Address" required />
+          <FloatInput name="company" label="Company / Business" required />
+        </div>
+
+        {/* Subject with selector chips */}
+        <div className="subject-section">
+          <p className="chips-label">Project Type</p>
+          <div className="chips-row">
+            {["AI Automation", "Web Design", "Chatbot", "Branding", "Other"].map((chip) => (
+              <ChipSelector key={chip} label={chip} />
+            ))}
+          </div>
+        </div>
+
+        {/* Message */}
+        <FloatInput name="message" label="Tell Us About Your Goal…" as="textarea" required />
+
+        {/* Submit */}
+        <motion.button
+          type="submit"
+          className="submit-btn"
+          animate={{
+            background: btnColor[status],
+            borderRadius: status === "sending" ? "50px" : "12px",
+          }}
+          whileHover={{ scale: status === "idle" ? 1.01 : 1 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+          disabled={status !== "idle"}
+        >
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={status}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+            >
+              {btnLabel[status]}
+            </motion.span>
+          </AnimatePresence>
+          {status === "sending" && <div className="btn-sweep" />}
+        </motion.button>
+
+        <p className="form-footnote">🔒 Encrypted & confidential. No spam, ever.</p>
+      </form>
+
+      <AnimatePresence>
+        {showThanks && <ThankYouOverlay onClose={() => { setShowThanks(false); setStatus("idle"); }} />}
+      </AnimatePresence>
+
+      <style jsx>{`
+        .right-panel {
+          position: relative; overflow: hidden;
+          background: rgba(4, 8, 15, 0.95);
+          border: 1px solid rgba(0,229,255,0.12);
+          border-radius: 24px;
+        }
+
+        /* Top bar */
+        .panel-topbar {
+          display: flex; align-items: center; gap: 12px;
+          padding: 16px 28px;
+          border-bottom: 1px solid rgba(0,229,255,0.06);
+          background: rgba(0,229,255,0.02);
+        }
+        .tb-dots { display: flex; gap: 6px; }
+        .tb-dots span {
+          width: 10px; height: 10px; border-radius: 50%;
+          background: rgba(0,229,255,0.15); border: 1px solid rgba(0,229,255,0.25);
+        }
+        .tb-dots span:first-child { background: rgba(0,229,255,0.5); }
+        .tb-title { flex: 1; text-align: center; font-family: monospace; font-size: 10px; letter-spacing: 0.2em; color: rgba(0,229,255,0.3); }
+        .tb-status { display: flex; align-items: center; gap: 6px; font-family: monospace; font-size: 10px; color: #00ff9d; letter-spacing: 0.1em; }
+        .tb-dot { width: 6px; height: 6px; border-radius: 50%; background: #00ff9d; animation: tbBlink 1.5s ease-in-out infinite; }
+        @keyframes tbBlink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        /* Form */
+        .cf-form { display: flex; flex-direction: column; gap: 18px; padding: 32px 36px 36px; position: relative; z-index: 2; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        /* Chips */
+        .subject-section {}
+        .chips-label { font-size: 10px; letter-spacing: 0.2em; color: rgba(0,229,255,0.4); font-family: monospace; margin-bottom: 10px; }
+        .chips-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        /* Submit */
+        .submit-btn {
+          width: 100%; padding: 22px;
+          border: none; font-size: 18px; font-weight: 800; font-family: inherit;
+          letter-spacing: 0.05em; color: #060a0f;
+          cursor: pointer; position: relative; overflow: hidden;
+          box-shadow: 0 0 40px rgba(0,229,255,0.2);
+          margin-top: 4px;
+        }
+        .submit-btn:disabled { cursor: not-allowed; }
+        .btn-sweep {
           position: absolute; inset: 0;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-          animation: btnSweep 1.2s ease-in-out infinite;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+          animation: sweep 1s ease-in-out infinite;
         }
-        @keyframes btnSweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
+        @keyframes sweep { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+
+        .form-footnote { text-align: center; font-size: 11px; color: rgba(255,255,255,0.2); margin: 0; font-family: monospace; }
+
+        @media (max-width: 600px) {
+          .form-row { grid-template-columns: 1fr; }
+          .cf-form { padding: 24px 20px; }
         }
+      `}</style>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   CHIP SELECTOR
+───────────────────────────────────────────── */
+function ChipSelector({ label }: { label: string }) {
+  const [active, setActive] = useState(false);
+  return (
+    <motion.button
+      type="button"
+      className={`chip ${active ? "chip-active" : ""}`}
+      onClick={() => setActive(p => !p)}
+      whileTap={{ scale: 0.95 }}
+      animate={{
+        background: active ? "rgba(0,229,255,0.12)" : "rgba(255,255,255,0.04)",
+        borderColor: active ? "rgba(0,229,255,0.5)" : "rgba(255,255,255,0.08)",
+        color: active ? "#00e5ff" : "rgba(255,255,255,0.4)",
+      }}
+      transition={{ duration: 0.2 }}
+    >
+      {active && <span className="chip-check">✓ </span>}
+      {label}
+      <style jsx>{`
+        .chip {
+          padding: 7px 16px; border-radius: 50px;
+          border: 1px solid; font-size: 12px; font-weight: 600;
+          cursor: pointer; font-family: inherit; transition: none;
+        }
+        .chip-check { font-size: 10px; }
       `}</style>
     </motion.button>
   );
 }
 
 /* ─────────────────────────────────────────────
-   CONTACT FORM
+   SECTION HEADING
+───────────────────────────────────────────── */
+function SectionHeading({ inView }: { inView: boolean }) {
+  return (
+    <div className="heading-block">
+      <motion.p
+        className="pre-label"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ delay: 0.1 }}
+      >
+        [ TRANSMISSION ]
+      </motion.p>
+
+      <h2 className="section-heading">
+        <AnimatedText text="Send a Transmission" highlight="Transmission" />
+      </h2>
+
+      <motion.div
+        className="morph-underline"
+        initial={{ scaleX: 0 }}
+        animate={inView ? { scaleX: 1 } : {}}
+        transition={{ duration: 1, delay: 0.5 }}
+      />
+
+      <motion.p
+        className="section-sub"
+        initial={{ opacity: 0, y: 8 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.6 }}
+      >
+        Tell us about your goals and we&apos;ll craft a precision strategy for you.
+      </motion.p>
+
+      <style jsx>{`
+        .heading-block { text-align: center; margin-bottom: 64px; }
+        .pre-label { font-family: monospace; font-size: 11px; letter-spacing: 0.3em; color: rgba(0,229,255,0.4); margin-bottom: 16px; }
+        .section-heading { font-size: clamp(32px, 5vw, 52px); font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 16px; }
+        .morph-underline {
+          width: 60px; height: 3px; background: #00e5ff;
+          margin: 0 auto 16px; transform-origin: center;
+          box-shadow: 0 0 16px rgba(0,229,255,0.5); border-radius: 50px;
+        }
+        .section-sub { color: rgba(255,255,255,0.4); font-size: 15px; }
+      `}</style>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   MAIN CONTACT FORM SECTION
 ───────────────────────────────────────────── */
 function ContactForm() {
   const ref = useRef(null);
@@ -407,119 +808,50 @@ function ContactForm() {
   return (
     <section className="form-section" ref={ref}>
       <LiquidDivider />
-      <MorphBlob className="blob-3" />
 
       <div className="section-inner">
-        <div className="heading-wrap">
-          <motion.p className="pre-label" initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.1 }}>
-            [ TRANSMISSION ]
-          </motion.p>
-          <h2 className="section-heading">
-            <AnimatedText text="Send a Transmission" highlight="Transmission" />
-          </h2>
-          <AnimatedText 
-            text="Describe your project requirements for analysis." 
-            className="section-sub"
-            delay={0.4}
-          />
+        <SectionHeading inView={inView} />
+
+        <div className="two-col">
+          <motion.div
+            className="col-left"
+            initial={{ opacity: 0, x: -40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <LeftPanel />
+          </motion.div>
+
+          <motion.div
+            className="col-right"
+            initial={{ opacity: 0, x: 40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <RightPanel />
+          </motion.div>
         </div>
-
-        <motion.div
-          className="form-shell"
-          initial={{ opacity: 0, y: 50, borderRadius: "40px" }}
-          animate={inView ? { opacity: 1, y: 0, borderRadius: "32px" } : {}}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
-          style={{ minHeight: "inherit" }}
-        >
-          {/* Morphing decorative top strip */}
-          <div className="form-top-strip">
-            <div className="strip-dot" /><div className="strip-dot" /><div className="strip-dot" />
-            <div className="strip-bar" />
-            <span className="strip-label">BOTMATE // SECURE.FORM</span>
-          </div>
-
-          {/* Corner brackets */}
-          <div className="form-bracket tl" /><div className="form-bracket tr" />
-          <div className="form-bracket bl" /><div className="form-bracket br" />
-
-          <form className="cf-form" onSubmit={e => e.preventDefault()}>
-            <div className="row-2">
-              <MorphInput placeholder="Your Name" required />
-              <MorphInput type="email" placeholder="Business Email" required />
-            </div>
-            <MorphInput placeholder="Subject" required />
-            <MorphInput as="textarea" placeholder="Tell us about your project goals..." required rows={6} />
-            <MorphButton />
-          </form>
-
-          {/* Animated background blob inside form */}
-          <div className="form-inner-blob" aria-hidden="true">
-            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-              <path fill="rgba(0,229,255,0.03)">
-                <animate
-                  attributeName="d"
-                  dur="10s"
-                  repeatCount="indefinite"
-                  values="
-                    M150,30 C200,20 260,80 270,150 C280,220 230,280 150,270 C70,260 20,200 30,130 C40,60 100,40 150,30 Z;
-                    M150,20 C210,10 280,70 280,150 C280,230 210,290 140,280 C70,270 10,210 20,140 C30,70 90,30 150,20 Z;
-                    M150,30 C200,20 260,80 270,150 C280,220 230,280 150,270 C70,260 20,200 30,130 C40,60 100,40 150,30 Z
-                  "
-                />
-              </path>
-            </svg>
-          </div>
-        </motion.div>
       </div>
 
       <style jsx>{`
-        .form-section { padding: 40px 0 120px; background: #060a0f; position: relative; overflow: hidden; }
-        .section-inner { max-width: 860px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 2; }
-        .heading-wrap { text-align: center; margin-bottom: 56px; }
-        .pre-label { font-family: monospace; font-size: 11px; letter-spacing: 0.3em; color: rgba(0,229,255,0.4); margin-bottom: 16px; }
-        .section-heading { font-size: clamp(32px, 5vw, 52px); font-weight: 900; margin-bottom: 12px; }
-        .section-sub { color: rgba(255,255,255,0.4); font-size: 15px; }
-
-        .form-shell {
-          background: rgba(4, 8, 15, 0.8);
-          border: 1px solid rgba(0,229,255,0.12);
-          padding: 52px;
+        .form-section {
+          padding: 40px 0 120px;
+          background: #060a0f;
           position: relative; overflow: hidden;
-          box-shadow: 0 40px 80px rgba(0,0,0,0.4);
-          background: rgba(4, 8, 15, 0.95);
+        }
+        .section-inner {
+          max-width: 1280px; margin: 0 auto; padding: 0 48px;
+          position: relative; z-index: 2;
+        }
+        .two-col {
+          display: grid;
+          grid-template-columns: 1fr 1.4fr;
+          gap: 32px;
+          align-items: start;
         }
 
-        /* Corner decorations */
-        .form-bracket {
-          position: absolute; width: 20px; height: 20px; pointer-events: none;
-        }
-        .tl { top: 14px; left: 14px; border-top: 1.5px solid rgba(0,229,255,0.4); border-left: 1.5px solid rgba(0,229,255,0.4); }
-        .tr { top: 14px; right: 14px; border-top: 1.5px solid rgba(0,229,255,0.4); border-right: 1.5px solid rgba(0,229,255,0.4); }
-        .bl { bottom: 14px; left: 14px; border-bottom: 1.5px solid rgba(0,229,255,0.4); border-left: 1.5px solid rgba(0,229,255,0.4); }
-        .br { bottom: 14px; right: 14px; border-bottom: 1.5px solid rgba(0,229,255,0.4); border-right: 1.5px solid rgba(0,229,255,0.4); }
-
-        /* Top info strip */
-        .form-top-strip {
-          display: flex; align-items: center; gap: 8px;
-          margin-bottom: 36px; padding-bottom: 20px;
-          border-bottom: 1px solid rgba(0,229,255,0.06);
-        }
-        .strip-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,229,255,0.4); animation: dotPulse 1.5s ease-in-out infinite; }
-        .strip-dot:nth-child(2) { animation-delay: 0.2s; background: rgba(0,229,255,0.25); }
-        .strip-dot:nth-child(3) { animation-delay: 0.4s; background: rgba(0,229,255,0.12); }
-        @keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        .strip-bar { flex: 1; height: 1px; background: rgba(0,229,255,0.08); }
-        .strip-label { font-family: monospace; font-size: 10px; letter-spacing: 0.15em; color: rgba(0,229,255,0.3); }
-
-        .cf-form { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 2; }
-        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-        .form-inner-blob { position: absolute; width: 350px; height: 350px; bottom: -100px; right: -100px; pointer-events: none; z-index: 0; }
-        .form-inner-blob svg { width: 100%; height: 100%; }
-
-        @media (max-width: 650px) {
-          .row-2 { grid-template-columns: 1fr; }
-          .form-shell { padding: 32px 24px; }
+        @media (max-width: 960px) {
+          .two-col { grid-template-columns: 1fr; }
           .section-inner { padding: 0 24px; }
         }
       `}</style>
