@@ -128,8 +128,8 @@ function ServicesSection() {
         <div className="section-heading-wrap">
           <motion.h2 
             className="section-heading"
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
           >
             {glitchedTitle}
@@ -227,8 +227,8 @@ function StatsSection() {
         <div className="section-heading-wrap">
           <motion.h2 
             className="section-heading"
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
           >
             {glitchedTitle}
@@ -314,10 +314,9 @@ function ProcessSection() {
         <div className="section-heading-wrap">
           <motion.h2 
             className="section-heading"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
-            style={{ minHeight: "inherit" }}
           >
             {glitchedTitle}
           </motion.h2>
@@ -442,8 +441,8 @@ function PricingSection() {
         <div className="section-heading-wrap">
           <motion.h2 
             className="section-heading"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
           >
             {glitchedTitle}
@@ -540,10 +539,9 @@ function TestimonialsSection() {
         <div className="section-heading-wrap">
           <motion.h2
             className="section-heading"
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
-            style={{ minHeight: "inherit" }}
           >
             {glitchedTitle}
           </motion.h2>
@@ -985,7 +983,7 @@ export default function HomeClient() {
         body {
           background: #060a0f;
           color: #fff;
-          font-family: var(--font-montserrat), var(--font-geist-sans), sans-serif;
+          font-family: 'Times New Roman', Times, serif;
           overflow-x: hidden;
         }
         .home-main { background: #060a0f; }
@@ -1364,7 +1362,7 @@ export default function HomeClient() {
         .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .cta-btn-primary {
           background: #00e5ff; color: #060a0f;
-          font-family: var(--font-montserrat), sans-serif; font-size: 15px; font-weight: 700;
+          font-family: 'Times New Roman', Times, serif; font-size: 15px; font-weight: 700;
           padding: 16px 44px; border-radius: 50px; text-decoration: none;
           box-shadow: 0 4px 26px rgba(0,229,255,0.44);
           transition: all .25s;
@@ -1379,7 +1377,7 @@ export default function HomeClient() {
         }
         .cta-btn-outline {
           background: transparent; color: #fff;
-          font-family: var(--font-montserrat), sans-serif; font-size: 15px; font-weight: 600;
+          font-family: 'Times New Roman', Times, serif; font-size: 15px; font-weight: 600;
           padding: 15px 44px; border-radius: 50px;
           border: 2px solid rgba(255,255,255,0.32);
           text-decoration: none; transition: all .25s;

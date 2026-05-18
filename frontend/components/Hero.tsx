@@ -120,22 +120,22 @@ export default function Hero() {
           <div className="hero-left">
             <h1 className="hero-title">
               <motion.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
                 style={{ display: "block" }}
               >
                 Grow Your Brand
               </motion.span>
               <motion.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.15 }}
                 style={{ display: "block" }}
               >
                 Digitally with
               </motion.span>
-            <motion.span
+              <motion.span
                 className="highlight"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -182,7 +182,7 @@ export default function Hero() {
         .hero-container {
           background: #060a0f;
           color: #fff;
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Times New Roman', Times, serif;
           overflow-x: hidden;
         }
 
@@ -254,7 +254,7 @@ export default function Hero() {
         .hero-left { flex: 0 0 auto; max-width: 600px; z-index: 3; text-align: left; }
 
         .hero-title {
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Times New Roman', Times, serif;
           font-size: clamp(40px, 5vw, 68px);
           font-weight: 700; line-height: 1.08;
           color: #fff; letter-spacing: -1.5px;
@@ -276,7 +276,7 @@ export default function Hero() {
 
         .btn-primary {
           background: #00e5ff; color: #000;
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Times New Roman', Times, serif;
           font-size: 15.5px; font-weight: 700;
           padding: 15px 36px; border-radius: 50px;
           border: none; cursor: pointer; text-decoration: none;
@@ -292,7 +292,7 @@ export default function Hero() {
 
         .btn-outline {
           background: transparent; color: #fff;
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Times New Roman', Times, serif;
           font-size: 15.5px; font-weight: 600;
           padding: 14px 36px; border-radius: 50px;
           border: 2px solid rgba(0,229,255,0.4);

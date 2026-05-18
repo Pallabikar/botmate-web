@@ -114,8 +114,9 @@ export default function Navbar() {
         .nav-left { display: flex; align-items: center; }
 
         .nav-logo img {
+          width: 90px;
           height: 90px;
-          width: auto;
+          object-fit: contain;
           transition: height 0.3s ease;
           display: block;
         }
